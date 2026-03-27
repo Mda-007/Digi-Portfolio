@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information including skills, projects, and contact info.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the user" },
+        "about": { "type": "string", "description": "Bio or about section" },
+        "role": { "type": "string", "enum": ["Developer", "Designer", "Student", "Manager", "Artist"], "description": "Current job role" },
+        "skills": { 
+          "type": "array", 
+          "items": { 
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "items": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "link": { "type": "string" },
+              "tags": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "institution": { "type": "string" },
+              "degree": { "type": "string" },
+              "year": { "type": "string" }
+            }
+          }
+        },
+        "goals": { "type": "array", "items": { "type": "string" } },
+        "achievements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "date": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "year": { "type": "string" },
+              "title": { "type": "string" },
+              "company": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "hobbies": { "type": "array", "items": { "type": "string" } },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string", "format": "email" },
+            "linkedin": { "type": "string" },
+            "github": { "type": "string" },
+            "twitter": { "type": "string" }
+          }
+        },
+        "theme": { "type": "string", "enum": ["classic", "dark", "nature", "ocean", "sunset"], "description": "Selected UI theme" },
+        "font": { "type": "string", "enum": ["sans", "serif", "mono"], "description": "Selected font family" },
+        "surface": { "type": "string", "enum": ["solid", "wood", "marble", "glass"], "description": "Selected desk surface texture" },
+        "showLabels": { "type": "boolean", "description": "Whether to show labels on the desk objects" },
+        "uid": { "type": "string", "description": "Firebase Auth UID of the owner" }
+      },
+      "required": ["name", "about", "role", "uid"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles stored by their Auth UID"
+    }
+  }
+}
